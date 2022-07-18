@@ -113,7 +113,7 @@ Query: {
             const token = signToken(user);
             return { token, user };
         },
-        saveBook: async (parent, { user, body }, context) => {
+        saveBook: async (parent, { user }, context) => {
             if (context.user) {
               const updatedUser = await User.findOneAndUpdate(
                 { _id: user._id },
@@ -123,6 +123,14 @@ Query: {
               return updatedUser;
             }
             throw new AuthenticationError('You need to be logged in!');
+        },
+        deleteBook: async (parent, { user, bookId }, context) => {
+            if (context.user) {
+                const updatedUser = await User.findOneAndUpdate(
+                    { _id: user._id },
+                    { $filter: { savedBooks: bookId } }
+                )
+            }
         }
     }
 };

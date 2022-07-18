@@ -14,11 +14,16 @@ type User {
 type Book {
     _id: ID
     description: String
-    authors: [Book]
+    authors: [Authors]
     bookId: String
     image: String
     link: String
     title: String
+}
+
+type Authors: {
+    _id: ID
+    name: String
 }
 
 type Query {
